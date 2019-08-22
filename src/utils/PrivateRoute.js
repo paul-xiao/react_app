@@ -3,10 +3,9 @@ import fakeAuth from './fakeAuth'
 import { Redirect, Route } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-
+  const token = localStorage.getItem('token')
   // Add your own authentication on the below line.
-  const isAuthenticated = fakeAuth.isAuthenticated
- console.log(isAuthenticated)
+  const isAuthenticated = fakeAuth.isAuthenticated || !!token
   return (
     <Route
       {...rest}

@@ -33,6 +33,7 @@ class Signin extends Component {
     }).then(response => {
       response.json().then((json) => {
        if(json.success) {
+         localStorage.setItem('token', json.token)
         fakeAuth.authenticate(() => {
           this.setState({redirectToReferrer: true})
         })

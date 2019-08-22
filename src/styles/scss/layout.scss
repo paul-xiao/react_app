@@ -1,0 +1,14 @@
+.header{
+    height: $head-height;
+    line-height: $head-height;
+    display: flex;
+    .logo{
+        flex: 1;
+    }
+    .nav{
+        flex: 1;
+        a,span{
+            padding: 0 10px;
+        }
+    }
+}
