@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { toggleTodo } from "../../store/actions";
+import { todoActions } from "../../store/actions";
+
+const { toggleTodo } = todoActions
 
 const style = {
     todo: {
@@ -10,10 +12,11 @@ const style = {
         color: 'red',
         padding: '0 15px'
     }
-}
-const Todo = ({todo}) => {
+} 
+const Todo = ({todo, toggleTodo}) => {
     return (
        <div style={style.todo} onClick={() => toggleTodo(todo.id)}>
+           <span>{todo.id}</span>
           <span style={style.status}>{todo.completed ? 'done' : 'pending'}</span>
           <span>{todo.content}</span>
        </div>

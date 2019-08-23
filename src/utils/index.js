@@ -1,6 +1,8 @@
 import fakeAuth from './fakeAuth'
-import PrivateRoute from './PrivateRoute'
+import authHeader from './auth-header'
+import api from './api'
 export {
     fakeAuth,
-    PrivateRoute
+    authHeader,
+    api
 }

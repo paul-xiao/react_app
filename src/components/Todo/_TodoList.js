@@ -1,10 +1,12 @@
 import React from 'react'
-import Todo from './Todo'
+import Todo from './_Todo'
 import { connect } from "react-redux";
 
-
+const style = {
+  padding: '20px'
+}
 const TodoList = ({todos}) => (
-    <ul className="todo-list">
+    <ul className="todo-list" style = {style}>
     {todos && todos.length
       ? todos.map((todo, index) => {
           return <Todo key={`todo-${index}`} todo={todo} />;
@@ -14,9 +16,9 @@ const TodoList = ({todos}) => (
 )
 
 const mapStateToProps = state => {
-    console.log(state.todos)
+    const todos = Object.values(state.todos.byIds)
   return {
-      todos: state.todos && Object.values(state.todos.byIds)
+      todos: state.todos && todos.map((item,index) => Object.assign(item, {id: index + 1}))
     }
 }
 

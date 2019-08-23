@@ -1,6 +1,8 @@
-import Header from './Header'
-import NoMatch from './NoMatch'
+import Header from './_Header'
+import NoMatch from './_NoMatch'
+import PrivateRoute from './_PrivateRoute'
 export {
     Header,
-    NoMatch
+    NoMatch,
+    PrivateRoute
 }

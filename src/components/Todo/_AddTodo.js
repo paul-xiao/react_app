@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addTodo } from "../../store/actions";
+import { todoActions } from "../../store/actions";
 
+const { addTodo } = todoActions
 class AddTodo extends React.Component {
   constructor(props) {
     super(props);

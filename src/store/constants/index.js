@@ -1,6 +1,7 @@
-export const VISIBILITY_FILTERS = {
-    ALL: "all",
-    COMPLETED: "completed",
-    INCOMPLETE: "incomplete"
-  };
-  
+import userConstants from './_user.constants'
+import todoConstants from './_todo.constants'
+
+export {
+  userConstants,
+  todoConstants
+}
