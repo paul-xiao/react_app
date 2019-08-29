@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import {Link, withRouter} from 'react-router-dom'
-import {Button} from 'antd'
-import {fakeAuth} from '../utils'
-const isLogin = fakeAuth.isAuthenticated || !!localStorage.getItem('token')
+import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux'
+import { userActions } from '../store/actions';
 const AuthButton = withRouter(
   ({ history , ...props}) =>
-  isLogin ? (
+  localStorage.getItem('token') ? (
       <span>
         Welcome! {props.name}
         <Button
          
           onClick={() => {
-            fakeAuth.signout(() => {
               history.push("/");
               clearToken();
-            });
           }}
         >
           Sign out
@@ -27,41 +25,10 @@ const AuthButton = withRouter(
 const clearToken = () => {
   localStorage.removeItem('token')
 }
-const getToken = () => {
- return localStorage.getItem('token')
-}
-const userinfo = 'http://localhost:8080/userinfo'
+
 class Header extends Component {
-  state = {
-    username: ""
-  }
-  logout = () => {
-    fakeAuth.signout()
-    console.log('out')
-  }
-  getUserInfo = () => {
-    fetch(userinfo, {
-      method: 'get',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-         'Authorization': getToken()
-      },
-      mode: 'cors'
-    }).then(response => {
-      response.json().then((json) => {
-        if(json.success) {
-         this.setState({
-           username: json.user
-         })
-        }
-       })
-    }).catch(err => {
-      console.log(err)
-    })
-  }
   componentDidMount(){
-    this.getUserInfo()
+   this.props.getUserInfo()
   }
   render() {
     return (
@@ -73,11 +40,19 @@ class Header extends Component {
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/signin">Signin</Link>
-        <AuthButton name={this.state.username}/>
+        <AuthButton name={this.props.userInfo.username}/>
         </div>
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+ return {
+  userInfo: state.user.userInfo
+ }
+}
+const actionCreator = {
+  getUserInfo: userActions.getUserInfo
+}
 
-export default Header;
+export default connect(mapStateToProps, actionCreator)(Header);

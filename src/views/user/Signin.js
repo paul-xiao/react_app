@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import {Redirect, Link} from 'react-router-dom'
-import { Input, Button, message } from 'antd';
-import {fakeAuth} from '../../utils'
-
-const api = 'http://localhost:8080/signin'
+import {Redirect, withRouter} from 'react-router-dom'
+import { Button, Box, TextField} from '@material-ui/core';
+import { connect } from 'react-redux'
+import { userActions } from '../../store/actions';
 class Signin extends Component {
   constructor(props) {
     super(props);
@@ -14,42 +13,23 @@ class Signin extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
- 
-  login = () => {
-    const opt = {
-      username: this.state.username,
-      password: this.state.password,
-    }
-    fetch(api, {
-      method: 'post',
-      body: JSON.stringify(opt),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors'
-    }).then(response => {
-      response.json().then((json) => {
-       if(json.success) {
-         localStorage.setItem('token', json.token)
-        fakeAuth.authenticate(() => {
-          this.setState({redirectToReferrer: true})
-        })
-       } else{
-        message.info(json.msg);
-       }
-      })
-    }).catch(err => {
-      message.info(err);
-    })
-  };
   handleChange(event) {
-    const name = event.target.name
+    const name = event.target.id
+    console.log(name)
+    console.log(event.target.value)
     this.setState({
       [name]: event.target.value
     });
+  }
+  handleSubmit(event){
+    event.preventDefault();
+    const {username, password} = this.state
+    this.props.signin({username, password})
+  }
+  componentDidMount() {
+    localStorage.removeItem('token')
   }
   render() {
     let { from } = this.props.location.state || { from: { pathname: "/" }};
@@ -59,14 +39,53 @@ class Signin extends Component {
 
     return (
       <div className="signin">
-        <p>You must log in to view the page at {from.pathname}</p>
-        <Input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-        <Input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
-        <Button type="primary" onClick={this.login}>Signin</Button>
-        <Link to="/signup">Signup</Link>
+        <h1>SignIn</h1>
+        <Box color="text.primary">
+        <TextField
+        id="username"
+        label="Username"
+        style={{ margin: 8 }}
+        placeholder=""
+        helperText=""
+        fullWidth
+        margin="normal"
+        onChange={this.handleChange}
+        value={this.state.username}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+       <TextField
+        id="password"
+        label="Password"
+        type="password"
+        style={{ margin: 8 }}
+        placeholder=""
+        helperText=""
+        fullWidth
+        margin="normal"
+        onChange={this.handleChange}
+        value={this.state.password}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+        </Box>
+        <Box color="text.primary" style={{padding: '20px'}}>
+          <Button variant="contained" color="primary" style={{'marginRight': '20px'}} onClick={this.handleSubmit}>Signin</Button>
+          <Button variant="contained" href="/signup">signup</Button>
+        </Box>
       </div>
     );
   }
 }
-
-export default Signin;
+const mapStateToProps = state =>{
+  return {
+    user: state.user,
+    message: state.user.message
+  }
+}
+const actionCreators = {
+  signin: userActions.signin
+}
+export default withRouter(connect(mapStateToProps, actionCreators)(Signin));

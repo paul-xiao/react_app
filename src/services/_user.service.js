@@ -30,7 +30,7 @@ const signin = ({username, password}) => {
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('token', JSON.stringify(user.token));
 
             return user;
         });
@@ -45,13 +45,13 @@ const getAll = () => {
     return fetch(`${api.url}/users`, requestOptions).then(handleResponse);
 }
 
-const getById = (id) => {
+const getUserInfo = () => {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${api.url}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${api.url}/userinfo`, requestOptions).then(handleResponse).catch(err => alert);
 }
 
 const update = (user) => {
@@ -101,7 +101,7 @@ const userServices = {
     signup,
     signin,
     getAll,
-    getById,
+    getUserInfo,
     update,
     _delete
 }

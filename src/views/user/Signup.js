@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom'
-import { Input, Button, message } from 'antd';
+import {Redirect, withRouter} from 'react-router-dom'
+import { Input, Button, Box } from '@material-ui/core';
 import { connect } from 'react-redux'
 import { userActions } from '../../store/actions'
 
@@ -17,32 +17,6 @@ class Signup extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // login = () => {
-  //   const opt = {
-  //     username: this.state.username,
-  //     password: this.state.password,
-  //   }
-  //   fetch(signup, {
-  //     method: 'post',
-  //     body: JSON.stringify(opt),
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     mode: 'cors'
-  //   }).then(response => {
-  //     response.json().then((json) => {
-  //      if(json.successs) {
-  //       message.info(json.msg);
-  //      } else{
-  //       message.info(json.message);
-  //      }
-  //     })
-  //   }).catch(err => {
-  //     message.info(err);
-  //   })
-  // };
-
   handleChange(event) {
     const name = event.target.name
     this.setState({
@@ -56,7 +30,6 @@ class Signup extends Component {
           username: this.state.username,
           password: this.state.password,
        }
-       console.log(this.state)
     this.props.signup(user)
   }
   render() {
@@ -67,9 +40,14 @@ class Signup extends Component {
 
     return (
       <div className="signin">
-        <Input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-        <Input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
-        <Button type="primary" onClick={this.handleSubmit}>Signup</Button>
+       <h1>SignUp</h1>
+       <Box color="text.primary">
+          <Input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+          <Input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
+        </Box>
+        <Box color="text.primary" style={{padding: '20px'}}>
+          <Button variant="contained" color="primary"  onClick={this.handleSubmit}>SignUp</Button>
+        </Box>
       </div>
     );
   }
@@ -84,4 +62,4 @@ const actionCreators = {
   signup: userActions.signup
 }
 
-export default connect(mapStateToProps, actionCreators)(Signup);
+export default withRouter(connect(mapStateToProps, actionCreators)(Signup));

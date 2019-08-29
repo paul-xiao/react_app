@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import {Header} from '../components'
+import IndexLayout from '../components/layouts/IndexLayout';
 
 
 class Home extends Component {
   render() {
     return (
-      <div className="Home">
-      <Header />
-        <h1>Home</h1>
-      </div>
+      <IndexLayout>
+        <div className="home">
+           <h1>Home</h1>
+        </div>
+      </IndexLayout>
     );
   }
 }

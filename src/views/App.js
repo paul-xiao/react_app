@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
 import '../styles/scss/index.scss';
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { Router, Route, Switch} from "react-router-dom";
 import Home from './Home'
 import About from './About'
 import TodoApp from './TodoApp'
@@ -10,6 +10,9 @@ import Signup from './user/Signup'
 import {NoMatch, PrivateRoute} from '../components'
 import { Provider } from "react-redux";
 import store from "../store";
+import { history } from '../utils';
+import Notification from '../components/Notification';
+
 
 
 class App extends Component {
@@ -17,7 +20,8 @@ class App extends Component {
     return (
       <Provider store={store}>
      <div>
-        <Router>
+     <Notification />
+        <Router history={history}>
               <Switch>
                <PrivateRoute exact path="/" component={Home} />
                <PrivateRoute path="/about" component={About} />
@@ -32,5 +36,4 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+export default App
