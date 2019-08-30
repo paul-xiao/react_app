@@ -3,7 +3,7 @@ import {
 } from "../constants";
 import { userServices } from '../../services'
 import {history} from '../../utils'
-import { enqueueSnackbar, closeSnackbar } from '../actions/_snackbar.actions';
+import { enqueueSnackbar } from '../actions/_snackbar.actions';
 const signup = ({username, password}) => {
     return dispatch => {
         userServices.signup({username, password}).then(res => {
@@ -38,7 +38,7 @@ const signin = ({username, password}) => {
         userServices.signin({username, password}).then(res => {
             if(res.status) {
                 dispatch(SIGNIN_SUCCESS(res))
-                enqueueSnackbar('success')
+                dispatch(enqueueSnackbar(['success','fail']))
                 history.push('/')
             } else {
                 dispatch(SIGNIN_FAIL())

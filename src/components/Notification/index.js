@@ -8,25 +8,38 @@ class Notification extends Component {
     super(props)
     this.state = { open: false }
   }
-
+  closeNotification = () => {
+    console.log('closeNotification')
+    this.setState({ open: false })
+   // this.props.messages[0] && this.props.removeSnackbar(this.props.messages[0].key)
+  }
   shouldComponentUpdate(nextProps, nextState) {
     // Only re-render when snackbar is going from closed to open
-    console.log(this.props)
-    return !this.state.open && nextState.open;
+    console.log('nextProps.messages.length')
+    console.log(nextProps.messages.length)
+    if(nextProps.messages.length > 0 && !this.state.open){
+      return !this.state.open
+    } else {
+      return false
+    }
+      
   }
-
-  closeNotification = () => {
-    this.setState({ open: false })
-    this.props.removeSnackbar()
+  
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.messages.length === 0 && !this.state.open){
+      this.setState({ open: true })
+    }
   }
 
   render() {
     return (
       <Snackbar
         open={this.state.open}
+        anchorOrigin={{ vertical:'top', horizontal: 'center' }}
+        key={`top,center`}
         message={'test'}
-        autoHideDuration={4000}
-        onRequestClose={this.closeNotification}
+        autoHideDuration={3000}
+        onClose={this.closeNotification}
       />
     )
   }

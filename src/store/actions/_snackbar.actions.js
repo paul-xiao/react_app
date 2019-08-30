@@ -1,7 +1,6 @@
 import {snackbarConstants} from '../constants'
 export const enqueueSnackbar = notification => {
     const key = notification.options && notification.options.key;
-
     return {
         type: snackbarConstants.ENQUEUE_SNACKBAR,
         notification: {

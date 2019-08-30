@@ -1,4 +1,4 @@
-import { snackbarActions } from '../actions';
+import { snackbarConstants } from '../constants';
 
 const defaultState = {
     notifications: [],
@@ -6,7 +6,8 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case snackbarActions.ENQUEUE_SNACKBAR:
+        case snackbarConstants.ENQUEUE_SNACKBAR:
+        console.log(action.notification)
             return {
                 ...state,
                 notifications: [
@@ -18,7 +19,7 @@ export default (state = defaultState, action) => {
                 ],
             };
 
-        case snackbarActions.CLOSE_SNACKBAR:
+        case snackbarConstants.CLOSE_SNACKBAR:
             return {
                 ...state,
                 notifications: state.notifications.map(notification => (
@@ -28,7 +29,8 @@ export default (state = defaultState, action) => {
                 )),
             }
 
-        case snackbarActions.REMOVE_SNACKBAR:
+        case snackbarConstants.REMOVE_SNACKBAR:
+        console.log(action.key)
             return {
                 ...state,
                 notifications: state.notifications.filter(
