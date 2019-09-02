@@ -38,7 +38,7 @@ const signin = ({username, password}) => {
         userServices.signin({username, password}).then(res => {
             if(res.status) {
                 dispatch(SIGNIN_SUCCESS(res))
-                dispatch(enqueueSnackbar(['success','fail']))
+                dispatch(enqueueSnackbar('SignIn success ! '))
                 history.push('/')
             } else {
                 dispatch(SIGNIN_FAIL())

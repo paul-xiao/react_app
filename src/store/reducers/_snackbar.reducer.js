@@ -30,7 +30,6 @@ export default (state = defaultState, action) => {
             }
 
         case snackbarConstants.REMOVE_SNACKBAR:
-        console.log(action.key)
             return {
                 ...state,
                 notifications: state.notifications.filter(

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import IndexLayout from '../components/layouts/IndexLayout';
 
 
 class About extends Component {
   render() {
     return (
-      <div className="About">
-      <h1>About</h1>
-       
-      </div>
+      <IndexLayout>
+        <div className="about">
+           <h1>About</h1>
+        </div>
+      </IndexLayout>
     );
   }
 }

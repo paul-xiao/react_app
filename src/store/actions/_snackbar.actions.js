@@ -4,7 +4,7 @@ export const enqueueSnackbar = notification => {
     return {
         type: snackbarConstants.ENQUEUE_SNACKBAR,
         notification: {
-            ...notification,
+            message: notification,
             key: key || new Date().getTime() + Math.random(),
         },
     };
