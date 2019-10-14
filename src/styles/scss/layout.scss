@@ -3,6 +3,9 @@
     max-width: 1200px;
     margin: 0 auto;
   }
+  .container{
+    padding: $padding-base;
+  }
 }
 .header{
     height: $head-height;
@@ -11,7 +14,7 @@
     border:1px solid $border-color-base;
     .logo{
         flex: 1;
-        padding-left: $base-padding;
+        padding-left: $padding-base;
     }
     .nav{
         flex: 1;
@@ -19,12 +22,21 @@
         &-item{
             display: inline;
             a,span{
-                padding: 0 $base-padding;
+                padding: 0 $padding-base;
             }
             a{
                 text-decoration: none;
                 color:$color-link;
             }
         }
+    }
+}
+
+.article{
+    padding: $padding-base;
+    font-size: 1rem;
+    ul,li{
+        padding: 0;
+        list-style: none;
     }
 }

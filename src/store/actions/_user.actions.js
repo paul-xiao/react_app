@@ -42,6 +42,7 @@ const signin = ({username, password}) => {
                 history.push('/')
             } else {
                 dispatch(SIGNIN_FAIL())
+                dispatch(enqueueSnackbar('SignIn failed ! '))
             }
         })
     }   

@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { todoActions } from "../../store/actions";
+import { TextField, Button } from '@material-ui/core'
+
 
 const { addTodo } = todoActions
 class AddTodo extends React.Component {
@@ -21,13 +23,13 @@ class AddTodo extends React.Component {
   render() {
     return (
       <div>
-        <input
+        <TextField
           onChange={e => this.updateInput(e.target.value)}
           value={this.state.input}
         />
-        <button className="add-todo" onClick={this.handleAddTodo}>
+        <Button variant="contained" color="primary" className="add-todo" style={{'marginLeft': '20px'}} onClick={this.handleAddTodo}>
           Add Todo
-        </button>
+        </Button>
       </div>
     );
   }

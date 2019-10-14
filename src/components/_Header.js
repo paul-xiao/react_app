@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link, withRouter} from 'react-router-dom'
-import {Button, IconButton, Menu, MenuItem} from '@material-ui/core';
+import {IconButton, Menu, MenuItem} from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { connect } from 'react-redux'
 import { userActions } from '../store/actions';
@@ -49,7 +49,9 @@ class Header extends Component {
 
   }
   componentDidMount(){
-   this.props.getUserInfo()
+    if(!localStorage.getItem('token')){
+      this.props.getUserInfo()
+    }
   }
   render() {
     return (
@@ -61,6 +63,7 @@ class Header extends Component {
           <div className="nav-item">
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
+            <Link to="/posts">Posts</Link>
           </div>
           <IconButton
             aria-label="account of current user"

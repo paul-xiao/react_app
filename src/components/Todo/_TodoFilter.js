@@ -1,12 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Button, ButtonGroup } from '@material-ui/core'
+
+
 
 const TodoFilter = ({set}) => {
         return (
            <div className="filter">
-           <button>all</button>
-           <button>completed</button>
-           <button>incompleted</button>
+           <ButtonGroup color="primary" aria-label="outlined primary button group">
+              <Button>All</Button>
+              <Button>Completed</Button>
+              <Button>Pending</Button>
+            </ButtonGroup>
            </div>
         )
   }

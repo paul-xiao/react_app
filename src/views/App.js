@@ -7,6 +7,9 @@ import About from './About'
 import TodoApp from './TodoApp'
 import Signin from './user/Signin'
 import Signup from './user/Signup'
+import Article from './posts/Article'
+import ArticleList from './posts/ArticleList'
+import Post from './posts/Post'
 import {NoMatch, PrivateRoute} from '../components'
 import { Provider } from "react-redux";
 import store from "../store";
@@ -25,6 +28,9 @@ class App extends Component {
               <Switch>
                <PrivateRoute exact path="/" component={Home} />
                <PrivateRoute path="/about" component={About} />
+               <PrivateRoute path="/create" component={Post} />
+               <PrivateRoute path="/posts" component={ArticleList} />
+               <PrivateRoute path="/article/:id" component={Article} />
                <Route path="/signin" component={Signin} />
                <Route path="/signup" component={Signup} />
                <Route path="/todo" component={TodoApp} />
