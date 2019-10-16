@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import '../styles/scss/index.scss';
 import { Router, Route, Switch} from "react-router-dom";
-import Home from './Home'
+// import Home from './Home'
 import About from './About'
 import TodoApp from './TodoApp'
 import Signin from './user/Signin'
@@ -26,7 +26,7 @@ class App extends Component {
      <Notification />
         <Router history={history}>
               <Switch>
-               <PrivateRoute exact path="/" component={Home} />
+               <PrivateRoute exact path="/" component={Post} />
                <PrivateRoute path="/about" component={About} />
                <PrivateRoute path="/create" component={Post} />
                <PrivateRoute path="/posts" component={ArticleList} />
