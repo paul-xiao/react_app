@@ -49,7 +49,7 @@ class Header extends Component {
 
   }
   componentDidMount(){
-    if(!localStorage.getItem('token')){
+    if(localStorage.getItem('token')){
       this.props.getUserInfo()
     }
   }
@@ -57,7 +57,7 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="logo">
-           <span>PX</span>
+           <span>Hola, {this.props.userInfo.username}</span>
         </div>
         <div className="nav">
           <div className="nav-item">

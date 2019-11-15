@@ -22,6 +22,7 @@ class Post extends Component {
    onSave = (e) => {
     e.preventDefault();
     let formData = new FormData()
+    console.log(this.state.file)
     formData.append('file', this.state.file)
     formData.append('desc', this.state.desc)
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
