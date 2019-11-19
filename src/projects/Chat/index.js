@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import client from 'socket.io-client';
+import socket from '../../utils/socket';
 import { connect } from 'react-redux'
 import moment from 'moment';
 
@@ -11,7 +11,6 @@ function Chat({userInfo}) {
     const [typing, setTyping] = useState('')
     const [users, setUsers] = useState([])
     const [post, setPost] = useState([])
-    const socket = client.connect('http://localhost:8080');
 
     useEffect(() => {
         // replace both componentDidMount and componentDidUpdat
@@ -46,8 +45,8 @@ function Chat({userInfo}) {
 
     const timeoutFunction = () => {
         socket.emit("typing", false);
-      }
-      let typingtimeout = null
+    }
+    let typingtimeout = null
     const sendMsg = (e) => {
         
         if(e.nativeEvent.keyCode === 13){ 
@@ -77,18 +76,20 @@ function Chat({userInfo}) {
     return (
         <div className="chatroom-wrap">
             <h1>Chat Room <small>{connect}</small></h1>
-            <div className="chatroom">
-               <div className="joined">
+            <div className="joined">
                   {users.length > 0 && users.map((item,index) => {
                       if(item !== userInfo.username) {
                         return (
                             <p key={index}>{item} has joined the chatroom...</p>
                           )
+                      } else {
+                          return null
                       }
                   })
 
                   }
                </div>
+            <div className="chatroom">
                <div className="msg-box">
                 <ul>
                        {post.map((item, index) => {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import IndexLayout from '../../components/layouts/IndexLayout';
 import { $http } from '../../utils/api'
-import List from '../../components/List'
+import {IndexLayout, List} from '../../components'
 import { Link } from 'react-router-dom'
 class ArticleList extends Component {
   constructor(props) {

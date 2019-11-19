@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../_Header'
+import Header from './Header'
 
 class IndexLayout extends React.Component {
    render() {

@@ -23,3 +23,8 @@ notification component
 
 
 # IM
+
+
+# issues
+
+- [ ] too much ws connections 

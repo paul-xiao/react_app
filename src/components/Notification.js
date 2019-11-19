@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Snackbar } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import {removeSnackbar, closeSnackbar} from '../../store/actions/_snackbar.actions'
+import {removeSnackbar, closeSnackbar} from '../store/actions/_snackbar.actions'
 class Notification extends Component {
   constructor(props) {
     super(props)

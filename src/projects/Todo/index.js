@@ -1,5 +1,5 @@
 import React from 'react'
-import {AddTodo, TodoList, TodoFilter} from '../components/Todo'
+import {AddTodo, TodoList, TodoFilter} from './Todo'
 
 const TodoApp = () => {
     return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { todoActions } from "../../store/actions";
+import { todoActions } from "../../../store/actions";
 import { TextField, Button } from '@material-ui/core'
 
 
