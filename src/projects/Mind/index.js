@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef, } from 'react';
 import ForceGraph3D from '3d-force-graph';
 import MdClose from 'react-ionicons/lib/MdClose'
+import {$http} from '../../utils/api';
 
 
 const data = JSON.parse(localStorage.getItem('graphData')) || {
@@ -44,9 +45,16 @@ const focusNode = (myGraph, filter) => {
  }
 }
 
-const addNode = (node, target, group) => {
+const addNode = (node, target, group, desc) => {
   const { nodes, links } = myGraph.graphData();
-
+  $http.post('/graph/add',{
+    nodename: node,
+    category: group,
+    target,
+    desc
+  }).then(data => {
+    console.log(data)
+  })
   myGraph.graphData({
     nodes: [...nodes, { id: node, group: group }],
     links: target ? [...links, {source: node, target: target} ] : [...links]
@@ -80,9 +88,15 @@ function Mind(props) {
     const [target, setTarget] = useState('')
     const [targets, setTargets] = useState([])
     const [dialog, setDialog] = useState('')
+    const [desc, setDesc] = useState('')
 
 
     
+    const initGraph = () => {
+       $http.get('/graph').then(data => {
+         console.log(data)
+       })
+    }
     const handleInput = (e) => {
       const {value} = e.target
       setSearch(value)
@@ -100,8 +114,12 @@ function Mind(props) {
       const {value} = e.target
       setCategory(value)
     }
+    const handleDescInput = (e) => {
+      const {value} = e.target
+      setDesc(value)
+    }
     const handleSubmit = () => {
-      addNode(node, target, category)
+      addNode(node, target, category, desc)
       setTargets([
         ...targets,
         node
@@ -120,6 +138,7 @@ function Mind(props) {
     useEffect(() => {
      
       if(!isMounted.current){
+        initGraph()
         drawChart()
         initTargets()
          window.addEventListener('resize', function(){
@@ -175,7 +194,7 @@ function Mind(props) {
            </select>
           </div>
           <div className="desc form-item">
-            <textarea name="" id="" cols="20" rows="5" placeholder="descriptions">
+            <textarea name="desc" cols="20" rows="5" placeholder="descriptions" value={desc} onChange={handleDescInput}>
             
             </textarea>
           </div>
