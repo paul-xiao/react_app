@@ -10,13 +10,14 @@ import ArticleList from './projects/Crawler/ArticleList'
 import { Provider } from "react-redux";
 import store from "./store";
 import { history } from './utils';
-import {Notification, NoMatch, PrivateRoute} from './components';
+import {Notification, NoMatch, PrivateRoute, SplashScreen} from './components';
 import * as serviceWorker from './serviceWorker';
 import Mind from './projects/Mind';
 
 ReactDOM.render( <Provider store={store}>
     <div>
     <Notification />
+    <SplashScreen />
        <Router history={history}>
              <Switch>
               <PrivateRoute path="/posts" component={ArticleList} />

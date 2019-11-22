@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://safe-castle-54585.herokuapp.com",
   "dependencies": {
+    "3d-force-graph": "^1.56.4",
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
     "axios": "^0.19.0",
@@ -13,6 +14,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "react-ionicons": "^3.0.1",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
