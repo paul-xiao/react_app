@@ -1,20 +1,17 @@
 import React, {useEffect, useState, useRef, } from 'react';
 import ForceGraph3D from '3d-force-graph';
-import MdClose from 'react-ionicons/lib/MdClose'
 import {$http} from '../../utils/api';
+import moment from 'moment';
 
-
-const data = JSON.parse(localStorage.getItem('graphData')) || {
-  nodes: [],
-  links: []
-}
 const myGraph = ForceGraph3D();
 
-const drawChart = () => {
+const drawChart = (data) => {
       myGraph(document.getElementById('chart'))
           .graphData(data)
-          .nodeLabel('id')
-          // .backgroundColor('#FFF')
+          .nodeLabel(node => {
+            return node.innerHTML = `<h1>${node.id}</h1>`
+          })
+          //.backgroundColor('#FFF')
         .nodeAutoColorBy('group')
         .onNodeClick(node => {
           // Aim at node from outside it
@@ -25,10 +22,16 @@ const drawChart = () => {
             node, // lookAt ({ x, y, z })
             3000  // ms transition duration
           );
+      })
+      .onNodeRightClick((node, event) => {
+        alert('rightClicked'+ node)
+
+        return false 
       });
 
     }
 const focusNode = (myGraph, filter) => {
+  console.log(filter)
  if(filter) {
   const { nodes } = myGraph.graphData();
   const filteredNodes = nodes.filter(item => item.id === filter)
@@ -59,16 +62,6 @@ const addNode = (node, target, group, desc) => {
     nodes: [...nodes, { id: node, group: group }],
     links: target ? [...links, {source: node, target: target} ] : [...links]
   });
-  const filteredData = {
-    nodes: myGraph.graphData().nodes.map(item => {const {id, group} = item; return {id, group} }),
-    links: myGraph.graphData().links.map(item => {
-      const {source, target} = item; 
-      const linksource = source.id || source; const linktarget = target.id || target;
-      return {source:linksource, target:linktarget}
-      })
-  }
-  localStorage.setItem('graphData', JSON.stringify(filteredData))
-
 }
 
 const Tree = () => {
@@ -76,6 +69,22 @@ const Tree = () => {
       <div id="chart"></div>
     )
 }
+
+const Desc = ({nodeInfo}) => {
+  const {data, status} = nodeInfo
+    return (
+      <div id="desc" className={status ? 'show': ''}>
+       {data.desc && <div className="desc-content">
+        <div className="desc-title">{data.nodename} <span className="desc-date">{moment(new Date(data.createdAt).getTime()).format('MMMM Do YYYY, h:mm:ss a')}</span></div>
+        <div className="desc-detail">
+        {data.desc}
+        </div>
+       </div>}
+      </div>
+    )
+}
+
+
 
 
 function Mind(props) {
@@ -89,13 +98,44 @@ function Mind(props) {
     const [targets, setTargets] = useState([])
     const [dialog, setDialog] = useState('')
     const [desc, setDesc] = useState('')
+    // nodeInfo
+    const [nodeInfo, setNodeInfo] = useState({
+      data: '',
+      status: false
+    })
+    const graphData = {
+        nodes: [],
+        links: []
+      }
 
 
     
     const initGraph = () => {
-       $http.get('/graph').then(data => {
-         console.log(data)
+       $http.get('/graph').then(({data}) => {
+         const graph = {
+          nodes:data.map(item => {return {id: item.nodename, group: item.category}}),
+          links:data.filter(item => item.target).map(item => {return {source: item.nodename, target: item.target}}),
+         }
+         drawChart(graph)
+         setTargets(data.map(item => item.nodename))
+
        })
+    }
+
+    const getNodeInfo = (nodename) => {
+      $http.get(`graph/${nodename}`).then(({data}) => {
+       if(data.desc) {
+        setNodeInfo({
+          data: data,
+          status: true
+        })
+       } else {
+        setNodeInfo({
+          data: data,
+          status: false
+        })
+       }
+      })
     }
     const handleInput = (e) => {
       const {value} = e.target
@@ -127,7 +167,7 @@ function Mind(props) {
     }
 
     const initTargets = () => {
-      const {nodes} = data
+      const {nodes} = graphData
       let arr = nodes.map(node => node.id)
       setTargets(arr)
     }
@@ -139,26 +179,28 @@ function Mind(props) {
      
       if(!isMounted.current){
         initGraph()
-        drawChart()
         initTargets()
          window.addEventListener('resize', function(){
            resizeGraph()
          })
-
-      }else {
-        focusNode(myGraph, search)
       }
       isMounted.current = true
       return () => window.removeEventListener('resize', function(){
         resizeGraph()
        });
 
-    }, [search, targets]);
+    }, [search, targets, nodeInfo]);
 
     const showDialog = (e) => {
 
       setDialog(e.target.name)
        
+    }
+    const handleSearch = (e) => {
+      if(e.key === 'Enter') {
+        focusNode(myGraph, search)
+        getNodeInfo(search)
+      }   
     }
 
     return (
@@ -168,10 +210,9 @@ function Mind(props) {
            <button name="search" onClick={showDialog}>Search</button>
          </div>         
         <Tree />
+        <Desc nodeInfo={nodeInfo}/>
         <div className={'search-box' + (dialog === 'search' ? ` show-${dialog}` : '')}>
-        <input type="text" placeholder="input node name" value={search} onChange={handleInput}/>
-        <MdClose className="search-close" onClick={showDialog} fontSize="30px" color="#777" />
-
+        <input type="text" placeholder="input node name" value={search} onChange={handleInput} onKeyPress={handleSearch}/>
         </div>
         <div className={'add-node' + (dialog === 'add' ? ` show-${dialog}` : '')}>
           <div className="node-name form-item">

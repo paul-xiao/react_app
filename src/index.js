@@ -13,9 +13,10 @@ import { history } from './utils';
 import {Notification, NoMatch, PrivateRoute, SplashScreen} from './components';
 import * as serviceWorker from './serviceWorker';
 import Mind from './projects/Mind';
+import Post from './projects/Post';
 
 ReactDOM.render( <Provider store={store}>
-    <div>
+    <div className="container">
     <Notification />
     <SplashScreen />
        <Router history={history}>
@@ -23,7 +24,8 @@ ReactDOM.render( <Provider store={store}>
               <PrivateRoute path="/posts" component={ArticleList} />
               <Route path="/signin" component={Signin} />
               <Route path="/signup" component={Signup} />
-              <Route path="/" component={Mind} />
+              <Route path="/" exact component={Mind} />
+              <Route path="/post"  component={Post} />
               <Route component={NoMatch} />
              </Switch>
        </Router>  

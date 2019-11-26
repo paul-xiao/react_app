@@ -21,11 +21,8 @@ function SplashScreen(props) {
             setLoading(false)
         }, 2000)
     }, [])
-    return (
-      <div>
-           {loading && <Splash /> }
-      </div>
-    )
+    return loading &&  <Splash /> 
+    
 }
 
 export default SplashScreen;
