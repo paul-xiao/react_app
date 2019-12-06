@@ -46,3 +46,104 @@
         list-style: none;
     }
 }
+.control{
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    svg{
+       &.MuiSvgIcon-root{
+         width: 42px;
+         height: 42px;
+         color: #FFF;
+       }
+    }
+}
+.video{
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    video{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+*::-webkit-media-controls-start-playback-button {
+    height: 100%;
+    background: red;
+  }
+  html,body{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+  }
+  .fix_test{
+    -webkit-transform: translate3d(0,0,0);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    background: lightblue;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    .fix_header{
+       flex: 0 0 60px;
+        width: 100%;
+        &_fixed{
+            width: 100%;
+            height: 60px;
+            position: fixed;
+            top: 0;
+            background: #ccc;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            border-bottom: 1px solid red;
+        }
+    }
+   
+    .fixed-wrap{
+       flex: 1;
+       background: cyan;
+       width: 100%;
+       height: 100%;
+       .fixed-container{
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 30px 0;
+        background: #ccc;
+        border: 1px solid #000;
+        z-index: 99;
+        -webkit-overflow-scrolling: touch;
+        .content{
+            height: 1800px;
+        }
+        .fixed{
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: lightcoral;
+            top: 0;
+            right: 0;
+            z-index: 99999;
+        } 
+     } 
+    }
+     
+  }
+ 
