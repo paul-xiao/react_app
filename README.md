@@ -1,30 +1,22 @@
-# todos
+### React App
 
-layout
-axios
-notification component
+> personal website
 
-# save to in db ?
+#### Todos
 
-# material UI
-
-
-## crawler
-
-- list
-- detail
-
-
-# CRUD
-
-
-
-# upload
+- [ ] design
+  - mockup
+- [ ] user mgt 
+  - [x] signin
+  - [x] signup
+  - [ ] auth 2.0
+- [ ] articles
+  - [ ] post
+  - [ ] crawler
+  - [ ] presentation
+- [ ] notifications
+- [ ] progress
 
 
-# IM
 
-
-# issues
-
-- [ ] too much ws connections 
+#### stacks

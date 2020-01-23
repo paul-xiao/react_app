@@ -5,6 +5,7 @@ import IndexLayout from './IndexLayout'
 import Notification from './Notification'
 import List from './List'
 import SplashScreen from './SplashScreen'
+import Archive from './Archive'
 export {
     Header,
     NoMatch,
@@ -12,5 +13,6 @@ export {
     IndexLayout,
     Notification,
     List,
-    SplashScreen
+    SplashScreen,
+    Archive
 }

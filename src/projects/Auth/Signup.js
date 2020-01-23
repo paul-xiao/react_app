@@ -42,8 +42,8 @@ class Signup extends Component {
       <div className="signin">
        <h1>SignUp</h1>
        <Box color="text.primary">
-          <Input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-          <Input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
+          <Input type="text" name="username" value={this.state.username} onChange={this.handleChange}  placeholder="username"/> <br />
+          <Input type="password" name="password" value={this.state.password} onChange={this.handleChange} placeholder="password" />
         </Box>
         <Box color="text.primary" style={{padding: '20px'}}>
           <Button variant="contained" color="primary"  onClick={this.handleSubmit}>SignUp</Button>

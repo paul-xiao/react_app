@@ -1,7 +1,13 @@
 .list{
     padding: $padding-base;
+    max-width: 800px;
+    margin: 0 auto;
     &-item{
         padding:$padding-base 0;
+        border: 1px solid $border-color-base;
+        min-height: 200px;
+        padding: $padding-base;
+        margin: $padding-base 0;
         .title{
             a{
                 font-size: 1rem;

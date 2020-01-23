@@ -57,7 +57,7 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="logo">
-           <span>Hola, {this.props.userInfo.username}</span>
+           <span>{this.props.userInfo.username && `Hola,${this.props.userInfo.username}` }</span>
         </div>
         <div className="nav">
           <div className="nav-item">

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { $http } from '../../utils/api'
-import {IndexLayout, List} from '../../components'
-import { Link } from 'react-router-dom'
+import {IndexLayout, List, Archive} from '../../components'
 class ArticleList extends Component {
   constructor(props) {
     super(props);
@@ -11,10 +9,39 @@ class ArticleList extends Component {
   }
 
   componentDidMount() {
-  $http.get('/test').then(res => {
-      this.setState({
-        lists: res.data
-      })
+  // $http.get('/test').then(res => {
+  //     this.setState({
+  //       lists: res.data
+  //     })
+  //   })
+    const fakeData = [{
+
+      id: '1', 
+      title: 'test',
+       abstract: '2', 
+       nickname: 'paul'
+    },{
+
+      id: '2', 
+      title: 'test',
+       abstract: '2', 
+       nickname: 'paul'
+    },{
+
+      id: '3', 
+      title: 'test',
+       abstract: '2', 
+       nickname: 'paul'
+    },{
+
+      id: '4', 
+      title: 'test',
+       abstract: '2', 
+       nickname: 'paul'
+    }]
+
+    this.setState({
+      lists : fakeData
     })
   }
 
@@ -23,11 +50,8 @@ class ArticleList extends Component {
     const { lists } = this.state
     return (
       <IndexLayout>
-        <div className="home">
-          <h1>List</h1>
-          <Link to="/create">New Post</Link>
           <List lists={lists}/>
-        </div>
+          <Archive />
       </IndexLayout>
     );
   }
